@@ -11,8 +11,11 @@ let editElement;
 let editFlag = false;
 let editID = "";
 
-// Form Submission 
+// Form Submissions & Event Listeners 
 form.addEventListener("submit", addGroceryItem)
+
+// Clear Items
+clearBtn.addEventListener("click", clearItems)
 
 // Add Item to Grocery List
 function addGroceryItem(e) {
@@ -65,9 +68,24 @@ function displayAlert(text, action) {
     }, 1000);
 }
 
+// Clear Items
+function clearItems() {
+    const items = document.querySelectorAll(".grocery_item")
+    if (items.length > 0) {
+        items.forEach(function(item) {
+            groceryList.removeChild(item)
+        })
+    }
+    container.classList.remove("show_container")
+    displayAlert('Empty List', "danger")
+}
+
 // Return to Default
 function returnToDefault() {
-    console.log("return to default")
+    groceryItem.value = "";
+    editFlag = false;
+    editID = "";
+    submitBtn.textContent = "Submit";
 }
 
 // Local Storage
