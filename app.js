@@ -20,10 +20,10 @@ clearBtn.addEventListener("click", clearItems)
 // Add Item to Grocery List
 function addGroceryItem(e) {
     e.preventDefault();
-    const groceryValue = grocery.value
+    const value = groceryItem.value
     const id = new Date().getTime().toString();
 
-    if (groceryValue && !editFlag) {
+    if (value && !editFlag) {
         const element = document.createElement("article");
 
         // Add Class
@@ -33,7 +33,7 @@ function addGroceryItem(e) {
         const attr = document.createAttribute("data_id");
         attr.value = id;
         element.setAttributeNode(attr);
-        element.innerHTML = ` <p class="title">${groceryValue}</p>
+        element.innerHTML = ` <p class="title">${value}</p>
         <div class="btn_container">
             <button type="button" class="edit_btn">
                 <i class="fas fa-edit"></i>
@@ -58,12 +58,12 @@ function addGroceryItem(e) {
         container.classList.add("show_container");
 
         // Add to Local Storage
-        addToLocalStorage(id, groceryValue);
+        addToLocalStorage(id, value);
 
         // Return to Default
         returnToDefault()
-    } else if (groceryValue && editFlag) {
-        editElement.innerHTML = groceryValue
+    } else if (value && editFlag) {
+        editElement.innerHTML = value
         displayAlert("Item updated successfully", "success")
 
         // Edit Local Storage
@@ -137,10 +137,10 @@ function returnToDefault() {
 
 // Local Storage
 function addToLocalStorage(id, value) {
-    const grocery = {id, value} 
+    const groceryItem = {id, value} 
     let items = getLocalStorage()
-items.push(grocery)
-localStorage.setItem("list", JSON.stringify(items))
+items.push(groceryItem)
+localStorage.setItem("groceryList", JSON.stringify(items))
 }
 
 function removeFromLocalStorage(id) {
@@ -150,7 +150,7 @@ function removeFromLocalStorage(id) {
             return item
         }
     })
-    localStorage.setItem("list", JSON.stringify(items))
+    localStorage.setItem("groceryList", JSON.stringify(items))
 }
 
 function editLocalStorage(id, value) {
@@ -161,10 +161,10 @@ function editLocalStorage(id, value) {
         }
         return item
     })
-    localStorage.setItem("list", JSON.stringify(items))
+    localStorage.setItem("groceryList", JSON.stringify(items))
 }
 
 function getLocalStorage() {
-    return localStorage.getItem("list") ? JSON.parse(localStorage.getItem("list"))
+    return localStorage.getItem("groceryList") ? JSON.parse(localStorage.getItem("groceryList"))
     :[]
 }
