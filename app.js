@@ -9,7 +9,7 @@ const clearBtn = document.querySelector(".clear_btn");
 // Edit Option
 let editElement;
 let editFlag = false;
-let editID = "";
+let editId = "";
 
 // Form Submissions & Event Listeners 
 form.addEventListener("submit", addGroceryItem)
@@ -67,7 +67,7 @@ function addGroceryItem(e) {
         displayAlert("Item updated successfully", "success")
 
         // Edit Local Storage
-        editLocalStorage(editID, groceryValue)
+        editLocalStorage(editId, value)
         returnToDefault()
     } else {
         displayAlert("Please enter value", "danger");
@@ -97,7 +97,7 @@ function clearItems() {
     container.classList.remove("show_container")
     displayAlert('Empty List', "danger")
     returnToDefault()
-    // localStorage.removeItem("groceryList")
+    localStorage.removeItem("list")
 }
 
 // Delete Function
@@ -112,7 +112,7 @@ function deleteItem(e) {
     returnToDefault()
 
     // Remove From Local Storage
-    // removeFromLocalStorage(id)
+    removeFromLocalStorage(id)
 }
 
 // Edit Function
@@ -123,7 +123,7 @@ function editItem(e) {
     // Set Form Value
     groceryItem.value = editElement.innerHTML
     editFlag = true
-    editID = element.dataset.id
+    editId = element.dataset.id
     submitBtn.textContent = "Edit"
 }
 
@@ -131,7 +131,7 @@ function editItem(e) {
 function returnToDefault() {
     groceryItem.value = "";
     editFlag = false;
-    editID = "";
+    editId = "";
     submitBtn.textContent = "Submit";
 }
 
@@ -144,11 +144,24 @@ localStorage.setItem("list", JSON.stringify(items))
 }
 
 function removeFromLocalStorage(id) {
-    
+    let items = getLocalStorage()
+    items = items.filter(function(item) {
+        if (item.id !== id) {
+            return item
+        }
+    })
+    localStorage.setItem("list", JSON.stringify(items))
 }
 
-function editLocalStorage(id, groceryValue) {
-
+function editLocalStorage(id, value) {
+    let items = getLocalStorage()
+    items = items.map(function(item) {
+        if (item.id === id) {
+            item.value = value
+        }
+        return item
+    })
+    localStorage.setItem("list", JSON.stringify(items))
 }
 
 function getLocalStorage() {
