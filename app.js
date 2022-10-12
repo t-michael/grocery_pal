@@ -24,8 +24,10 @@ function addGroceryItem(e) {
     const id = new Date().getTime().toString();
     if (groceryValue && !editFlag) {
         const element = document.createElement("article");
+
         // Add Class
         element.classList.add("grocery_item");
+
         // Add ID
         const attr = document.createAttribute("data_id");
         attr.value = id;
@@ -39,14 +41,24 @@ function addGroceryItem(e) {
                 <i class="fas fa-trash"></i>
             </button>
         </div>`;
+
+        const deleteBtn = element.querySelector(".delete_btn")
+        const editBtn = element.querySelector(".edit_btn")
+        deleteBtn.addEventListener("click", deleteItem)
+        editBtn.addEventListener("click", editItem)
+
         // Append Child
         groceryList.appendChild(element);
+
         // Display Alert
         displayAlert("Item added to grocery list", "succes");
+
         // Display Container
         container.classList.add("show_container");
+
         // Add to Local Storage
         addToLocalStorage(id, groceryValue);
+
         // Return to Default
         returnToDefault()
     } else if (groceryValue && editFlag) {
@@ -78,7 +90,31 @@ function clearItems() {
     }
     container.classList.remove("show_container")
     displayAlert('Empty List', "danger")
+    returnToDefault()
+    // localStorage.removeItem("groceryList")
 }
+
+
+// Delete Function
+function deleteItem(e) {
+    const element = e.currentTarget.parentElement.parentElement
+    const id = element.dataset.id
+    groceryList.removeChild(element)
+    if (groceryList.children.length === 0) {
+        container.classList.remove("show_container")
+    }
+    displayAlert("Item removed successfully", "success")
+    returnToDefault()
+
+    // Remove From Local Storage
+    // removeFromLocalStorage(id)
+}
+
+// Edit Function
+function editItem() {
+    console.log("Edit Item")
+}
+
 
 // Return to Default
 function returnToDefault() {
@@ -90,5 +126,9 @@ function returnToDefault() {
 
 // Local Storage
 function addToLocalStorage(id, groceryValue) {
-    console.log("Added to local storage");
+    // console.log("Added to local storage");
+}
+
+function removeFromLocalStorage(id) {
+    
 }
