@@ -4,10 +4,39 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
     <link rel="stylesheet" href="style.css" />
-    <title>Document</title>
+    <title>Grocery Pal</title>
 </head>
 <body>
+    <section class="section_center">
+        <form class="grocery_form">
+            <p class="alert_msg"></p>
+            <h3>Grocery Pal</h3>
+            <div class="form_control">
+                <input type="text" id="grocery" placeholder="Chocolate" />
+                <button class="submit_btn" type="submit">Submit</button>
+            </div>
+        </form>
+
+        <div class="grocery_container">
+            <div class="grocery_list">
+                <article class="grocery_item">
+                    <!-- <p class="title">Item</p>
+                    <div class="btn_container">
+                        <button type="button" class="edit_btn">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button type="button" class="delete_btn">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div> -->
+                </article>
+            </div>
+            <button clear="clear_btn" type="button">Clear Items</button>
+        </div>
+    </section>
+
     
     <script src="app.js"></script>
 </body>
